@@ -8,9 +8,9 @@ class SurveyLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(context.s.hello_world),
+          Center(child: Text(context.s.hello_world)),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:flutter_master/ui/auth_screen/cubit/auth_state.dart';
 

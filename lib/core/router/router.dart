@@ -16,19 +16,19 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       name: AuthScreen.routeName,
       path: AuthScreen.routeName,
-      builder: (__, _) => const AuthScreen(),
+      builder: (context, state) => const AuthScreen(),
       routes: [
-        GoRoute(
-          name: SurveyScreen.routeName,
-          path: SurveyScreen.routeName,
-          builder: (__, _) => const SurveyScreen(),
-        ),
         GoRoute(
           name: PersonalStatisticScreen.routeName,
           path: PersonalStatisticScreen.routeName,
-          builder: (__, _) => const PersonalStatisticScreen(),
+          builder: (context, state) => const PersonalStatisticScreen(),
         ),
       ],
+    ),
+    GoRoute(
+      name: SurveyScreen.routeName,
+      path: SurveyScreen.routeName,
+      builder: (context, state) => const SurveyScreen(),
     ),
   ],
 );
