@@ -20,10 +20,4 @@ class AuthCubit extends Cubit<AuthState> {
     await repository.saveUserId(userId);
     emit(AuthSuccessSavedIdState());
   }
-
-  void getUserSession() async {
-    final userId = await repository.getUserId();
-    if (userId == null) return;
-    emit(AuthSuccessGotIdState(userId));
-  }
 }

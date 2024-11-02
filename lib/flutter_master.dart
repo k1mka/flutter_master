@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_master/core/logger/composite_logger_holder.dart';
 import 'package:flutter_master/core/router/app_router_holder.dart';
 import 'package:flutter_master/core/router/router.dart';
-import 'package:flutter_master/core/theme/palette.dart';
+import 'package:flutter_master/core/theme/theme.dart';
 import 'package:flutter_master/setup_service_locator.dart';
 
 class FlutterMaster extends StatelessWidget {
@@ -12,6 +12,7 @@ class FlutterMaster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final materialTheme = MaterialTheme(Theme.of(context).textTheme);
     return MaterialApp.router(
       title: 'Flutter Master',
       routerConfig: goRouter,
@@ -21,9 +22,7 @@ class FlutterMaster extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      theme: ThemeData(
-        scaffoldBackgroundColor: Palette.white,
-      ),
+      theme: materialTheme.light(),
       builder: (context, router) => AppRouterHolder(
         router: getRouter,
         child: CompositeLoggerHolder(

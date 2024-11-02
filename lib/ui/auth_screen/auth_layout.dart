@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_master/core/templates/context_extensions.dart';
 import 'package:flutter_master/ui/auth_screen/cubit/auth_cubit.dart';
 import 'package:flutter_master/ui/auth_screen/cubit/auth_state.dart';
-import 'package:flutter_master/ui/survey_screen/survey_screen.dart';
+import 'package:flutter_master/ui/profile_screen/profile_screen.dart';
+import 'package:flutter_master/ui/widgets/atoms/progress_template.dart';
+import 'package:flutter_master/ui/widgets/pages/auth_page.dart';
 
 class AuthLayout extends StatelessWidget {
   const AuthLayout({super.key});
@@ -14,46 +16,19 @@ class AuthLayout extends StatelessWidget {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccessSavedIdState) {
-            context.r.push(SurveyScreen.routeName);
+            context.r.replace(ProfileScreen.routeName);
           }
         },
-        builder: (context, state) {
+        builder: (_, state) {
           return switch (state) {
-            AuthInitialState() => _AuthPage(
-                () => context.read<AuthCubit>().saveUserSession(),
+            AuthInitialState() => AuthPage(
+                onSignIn: () => context.read<AuthCubit>().saveUserSession(),
               ),
-            AuthSuccessSavedIdState() => _AuthPage(
-                () => context.r.push(SurveyScreen.routeName),
-              ),
-            AuthSuccessGotIdState() => _AuthPage(
-                () {
-                  // TODO(George): implement later
-                },
-              ),
+            AuthSuccessSavedIdState() => const ProgressTemplate(),
+            AuthSuccessGotIdState() => const ProgressTemplate(),
           };
         },
       ),
-    );
-  }
-}
-
-class _AuthPage extends StatelessWidget {
-  const _AuthPage(this.onSignIn);
-
-  final VoidCallback onSignIn;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: ElevatedButton(
-            onPressed: onSignIn,
-            child: Text(context.s.start_session),
-          ),
-        )
-      ],
     );
   }
 }

@@ -11,7 +11,6 @@ import 'package:flutter_master/data/repository_impl.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final _getIt = GetIt.instance;
 

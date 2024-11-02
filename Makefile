@@ -4,7 +4,6 @@ g:
 	make a
 	make b
 	make p
-	make pod
 
 b:
 	fvm dart run build_runner build --delete-conflicting-outputs
