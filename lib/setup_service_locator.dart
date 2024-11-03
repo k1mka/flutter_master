@@ -5,6 +5,7 @@ import 'package:flutter_master/core/router/app_router.dart';
 import 'package:flutter_master/core/router/go_router.dart';
 import 'package:flutter_master/data/datasources/locale/local_storage.dart';
 import 'package:flutter_master/data/datasources/locale/local_storage_impl.dart';
+import 'package:flutter_master/data/datasources/remote/network_service/dio_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service_impl.dart';
 import 'package:flutter_master/data/repository_impl.dart';
@@ -21,7 +22,7 @@ final getRepo = _getIt<Repository>();
 Future<void> serviceLocator() async => setupSync();
 
 void setupSync() {
-  _getIt.registerLazySingleton<NetworkService>(() => DioNetworkServiceImpl(Dio()));
+  _getIt.registerLazySingleton<NetworkService>(() => NetworkServiceImpl(DioService()));
   _getIt.registerLazySingleton<AppRouter>(() => GoAppRouter());
   _getIt.registerSingleton<CompositeLogger>(CompositeLoggerImpl(logger: Logger()));
   _getIt.registerSingleton<LocalStorage>(LocalStorageImpl());
@@ -31,4 +32,3 @@ void setupSync() {
     localStorage: _getIt<LocalStorage>(),
   ));
 }
-

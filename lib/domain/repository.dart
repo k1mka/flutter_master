@@ -1,4 +1,6 @@
 abstract interface class Repository {
+  Future<List<String>> getQuestions();
+
   Future<void> saveUserId(String userId);
 
   Future<String?> getUserId();
