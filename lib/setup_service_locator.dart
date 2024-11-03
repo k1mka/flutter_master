@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_master/core/logger/composite_logger.dart';
 import 'package:flutter_master/core/logger/composite_logger_impl.dart';
 import 'package:flutter_master/core/router/app_router.dart';
