@@ -12,14 +12,18 @@ class RepositoryImpl implements Repository {
   final NetworkService networkService;
 
   @override
-  Future<void> testApi() async {
-    // TODO: implement testApi
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> saveUserId(String userId) async => await localStorage.saveUserId(userId);
 
   @override
   Future<String?> getUserId() async => await localStorage.getUserId();
+
+  @override
+  Future<List<String>?> getFailedList() async => await localStorage.getFailedList();
+
+  @override
+  Future<void> updateFail(String item) async => localStorage.updateFail(item);
+
+  @override
+  Future<List<String>?> deleteFailedItem(String item) async =>
+      await localStorage.deleteFailedItem(item);
 }
