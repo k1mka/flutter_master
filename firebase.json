@@ -1,0 +1,31 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "flutter-master-edcab",
+          "appId": "1:989335601535:android:5a77a403b2271e136d1a4a",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "flutter-master-edcab",
+          "appId": "1:989335601535:ios:3c666bbebe8bfff86d1a4a",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "flutter-master-edcab",
+          "configurations": {
+            "android": "1:989335601535:android:5a77a403b2271e136d1a4a",
+            "ios": "1:989335601535:ios:3c666bbebe8bfff86d1a4a",
+            "web": "1:989335601535:web:c66eb4a43b69e8a26d1a4a"
+          }
+        }
+      }
+    }
+  }
+}
