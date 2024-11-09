@@ -19,7 +19,6 @@ final _getIt = GetIt.instance;
 final getLogger = _getIt<CompositeLogger>();
 final getRouter = _getIt<AppRouter>();
 final getRepo = _getIt<Repository>();
-final getStore = _getIt<FirestoreService>();
 
 Future<void> serviceLocator() async => setupSync();
 
@@ -33,7 +32,8 @@ void setupSync() {
   _getIt.registerSingleton<FirestoreService>(FirestoreServiceImpl());
 
   _getIt.registerSingleton<Repository>(RepositoryImpl(
-    networkService: _getIt<NetworkService>(),
     localStorage: _getIt<LocalStorage>(),
+    networkService: _getIt<NetworkService>(),
+    firestoreService: _getIt<FirestoreService>(),
   ));
 }

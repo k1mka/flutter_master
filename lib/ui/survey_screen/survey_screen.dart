@@ -11,7 +11,7 @@ class SurveyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) => SurveyCubit(getRepo, getStore),
+        create: (context) => SurveyCubit(getRepo),
         child: const SurveyLayout(),
       );
 }

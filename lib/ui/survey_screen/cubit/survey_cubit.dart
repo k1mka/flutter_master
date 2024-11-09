@@ -1,16 +1,14 @@
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:flutter_master/ui/survey_screen/cubit/survey_state.dart';
 
 class SurveyCubit extends Cubit<SurveyState> {
-  SurveyCubit(this.repository, this.firestoreService) : super(SurveyInitial()) {
+  SurveyCubit(this.repository) : super(SurveyInitial()) {
     getQuestion();
   }
 
   final Repository repository;
-  final FirestoreService firestoreService;
 
   Future<void> uploadNewQuestion() async {
     emit(SurveyLoading());
@@ -44,7 +42,7 @@ class SurveyCubit extends Cubit<SurveyState> {
   }
 
   Future<String?> _getRandomQuestionFromFirestore() async {
-    final questions = await firestoreService.getQuestions();
+    final questions = await repository.getQuestions();
     final unansweredQuestions =
         questions.where((q) => q['answered_correctly'] == false).toList();
     if (unansweredQuestions.isNotEmpty) {
@@ -59,7 +57,7 @@ class SurveyCubit extends Cubit<SurveyState> {
   }
 
   Future<void> registerCorrectAnswer(String questionText) async {
-    await firestoreService
+    await repository
         .updateQuestionByText(questionText, {'answered_correctly': true});
 
     final newQuestion = await _getRandomQuestionFromFirestore();
