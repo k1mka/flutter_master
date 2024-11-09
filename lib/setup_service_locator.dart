@@ -7,6 +7,8 @@ import 'package:flutter_master/data/datasources/locale/local_storage.dart';
 import 'package:flutter_master/data/datasources/locale/local_storage_impl.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service_impl.dart';
+import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
+import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service_impl.dart';
 import 'package:flutter_master/data/repository_impl.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:get_it/get_it.dart';
@@ -17,18 +19,21 @@ final _getIt = GetIt.instance;
 final getLogger = _getIt<CompositeLogger>();
 final getRouter = _getIt<AppRouter>();
 final getRepo = _getIt<Repository>();
+final getStore = _getIt<FirestoreService>();
 
 Future<void> serviceLocator() async => setupSync();
 
 void setupSync() {
-  _getIt.registerLazySingleton<NetworkService>(() => DioNetworkServiceImpl(Dio()));
+  _getIt.registerLazySingleton<NetworkService>(
+      () => DioNetworkServiceImpl(Dio()));
   _getIt.registerLazySingleton<AppRouter>(() => GoAppRouter());
-  _getIt.registerSingleton<CompositeLogger>(CompositeLoggerImpl(logger: Logger()));
+  _getIt.registerSingleton<CompositeLogger>(
+      CompositeLoggerImpl(logger: Logger()));
   _getIt.registerSingleton<LocalStorage>(LocalStorageImpl());
+  _getIt.registerSingleton<FirestoreService>(FirestoreServiceImpl());
 
   _getIt.registerSingleton<Repository>(RepositoryImpl(
     networkService: _getIt<NetworkService>(),
     localStorage: _getIt<LocalStorage>(),
   ));
 }
-
