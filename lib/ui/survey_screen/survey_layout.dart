@@ -21,8 +21,11 @@ class SurveyLayout extends StatelessWidget {
             SurveyLoading() => const ProgressTemplate(),
             SurveySuccessLoaded() => SurveyPage(
                 question: state.question,
-                onSuccessPressed: () async => context.read<SurveyCubit>().uploadNewQuestion(),
-                onFailPressed: () async => context.read<SurveyCubit>().registerFail(state.question),
+                onSuccessPressed: () async => context
+                    .read<SurveyCubit>()
+                    .registerCorrectAnswer(state.question),
+                onFailPressed: () async =>
+                    context.read<SurveyCubit>().registerFail(state.question),
               ),
           };
         },
