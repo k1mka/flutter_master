@@ -4,8 +4,8 @@ import 'package:flutter_master/data/datasources/remote/storage_service/firestore
 class StorageServiceFirebaseImpl implements StorageServiceFirebase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  static const String _questionsCollection = 'questions';
-  static const String _questionTextField = 'text';
+  static const _questionsCollection = 'questions';
+  static const _questionTextField = 'text';
 
   @override
   Future<List<Map<String, dynamic>>> getQuestions() async {
