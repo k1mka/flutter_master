@@ -1,5 +1,12 @@
 {
-  "hello_world": "Hello World",
-  "welcome_to_flutter_master" : "Welcome to Flutter Master!",
-  "to_launch_the_application_please_click_on_the_anonymous_login_button" : "To launch the application, please click on the \"Anonymous Login\" button."
+  "hello_world": "Привіт, світе",
+  "start_session": "Почати сесію",
+  "welcome_to_flutter_master": "Ласкаво просимо до Flutter Master!",
+  "to_launch_the_application_please_click_on_the_anonymous_login_button": "Щоб запустити додаток, натисніть на кнопку \"Анонімний вхід\".",
+  "log_in_anonymously": "Увійти анонімно",
+  "start_new_survey": "Почати нове опитування",
+  "go_to_statistics": "Перейти до статистики",
+  "successful": "Успішно",
+  "fail": "Невдача",
+  "copied_to_clipboard": "Скопійовано до буфера обміну:"
 }
