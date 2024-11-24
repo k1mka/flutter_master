@@ -29,11 +29,11 @@ void setupSync() {
   _getIt.registerSingleton<CompositeLogger>(
       CompositeLoggerImpl(logger: Logger()));
   _getIt.registerSingleton<LocalStorage>(LocalStorageImpl());
-  _getIt.registerSingleton<FirestoreService>(FirestoreServiceImpl());
+  _getIt.registerSingleton<StorageServiceFirebase>(StorageServiceFirebaseImpl());
 
   _getIt.registerSingleton<Repository>(RepositoryImpl(
     localStorage: _getIt<LocalStorage>(),
     networkService: _getIt<NetworkService>(),
-    firestoreService: _getIt<FirestoreService>(),
+    firestoreService: _getIt<StorageServiceFirebase>(),
   ));
 }

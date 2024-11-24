@@ -12,7 +12,7 @@ class RepositoryImpl implements Repository {
 
   final LocalStorage localStorage;
   final NetworkService networkService;
-  final FirestoreService firestoreService;
+  final StorageServiceFirebase firestoreService;
 
   @override
   Future<void> saveUserId(String userId) async =>

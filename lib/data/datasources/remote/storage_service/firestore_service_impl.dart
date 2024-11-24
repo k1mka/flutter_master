@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
 
-class FirestoreServiceImpl implements FirestoreService {
+class StorageServiceFirebaseImpl implements StorageServiceFirebase {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
