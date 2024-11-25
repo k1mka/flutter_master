@@ -18,6 +18,9 @@ class StatisticPage extends StatelessWidget {
   static const _icon = Icon(Icons.sms_failed_outlined);
   static const _deleteIcon = Icon(Icons.delete, color: Palette.white);
 
+  void copyQuestion(String question) =>
+      Clipboard.setData(ClipboardData(text: question));
+
   @override
   Widget build(BuildContext context) => AppWrapper(
         child: ListView.builder(
@@ -41,7 +44,7 @@ class StatisticPage extends StatelessWidget {
                 leading: _icon,
                 title: Text(question),
                 onTap: () {
-                  Clipboard.setData(ClipboardData(text: question));
+                  copyQuestion(question);
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(SnackBar(
