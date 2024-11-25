@@ -38,7 +38,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: Env.webApiKey,
+    apiKey: 'AIzaSyDeJ41HQaOXgVZ6P1gjaT3i9FhkvNRTzNQ',
     appId: '1:989335601535:web:c66eb4a43b69e8a26d1a4a',
     messagingSenderId: '989335601535',
     projectId: 'flutter-master-edcab',
@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: Env.androidApiKey,
+    apiKey: 'AIzaSyA1QInGsbAP-m6-dQauhW6-2S9MBQb-64o',
     appId: '1:989335601535:android:5a77a403b2271e136d1a4a',
     messagingSenderId: '989335601535',
     projectId: 'flutter-master-edcab',
@@ -56,7 +56,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: Env.iosApiKey,
+    apiKey: 'AIzaSyCgq3zxMp-b5yyOjRH-jbuzGUZUv_tw8RQ',
     appId: '1:989335601535:ios:3c666bbebe8bfff86d1a4a',
     messagingSenderId: '989335601535',
     projectId: 'flutter-master-edcab',
