@@ -26,4 +26,7 @@ class RepositoryImpl implements Repository {
   @override
   Future<List<String>?> deleteFailedItem(String item) async =>
       await localStorage.deleteFailedItem(item);
+
+  @override
+  Future<List<String>> getQuestions() async => await networkService.getQuestions();
 }
