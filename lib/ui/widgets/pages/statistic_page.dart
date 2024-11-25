@@ -18,8 +18,14 @@ class StatisticPage extends StatelessWidget {
   static const _icon = Icon(Icons.sms_failed_outlined);
   static const _deleteIcon = Icon(Icons.delete, color: Palette.white);
 
-  void copyQuestion(String question) =>
-      Clipboard.setData(ClipboardData(text: question));
+  void copyQuestion(String question, BuildContext context) {
+    Clipboard.setData(ClipboardData(text: question));
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text('${context.s.copied_to_clipboard} $question'),
+      ));
+  }
 
   @override
   Widget build(BuildContext context) => AppWrapper(
@@ -43,15 +49,7 @@ class StatisticPage extends StatelessWidget {
               child: ListTile(
                 leading: _icon,
                 title: Text(question),
-                onTap: () {
-                  copyQuestion(question);
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(SnackBar(
-                      content:
-                          Text('${context.s.copied_to_clipboard} $question'),
-                    ));
-                },
+                onTap: () => copyQuestion(question, context),
               ),
             );
           },
