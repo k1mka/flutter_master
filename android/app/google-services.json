@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "989335601535",
+    "project_id": "flutter-master-edcab",
+    "storage_bucket": "flutter-master-edcab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989335601535:android:5a77a403b2271e136d1a4a",
+        "android_client_info": {
+          "package_name": "com.example.master"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1QInGsbAP-m6-dQauhW6-2S9MBQb-64o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
