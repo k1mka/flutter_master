@@ -7,5 +7,6 @@
   "start_new_survey": "Start new survey",
   "go_to_statistics": "Go to statistics",
   "successful": "Successful",
-  "fail": "Fail"
+  "fail": "Fail",
+  "copied_to_clipboard": "Copied to clipboard:"
 }

@@ -1,104 +1,38 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_master/core/templates/typedefs.dart';
-import 'package:flutter_master/data/datasources/remote/network_service/error_parser.dart';
+import 'package:flutter_master/data/datasources/remote/network_service/custom_exception.dart';
+import 'package:flutter_master/data/datasources/remote/network_service/dio_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
+import 'package:dio/dio.dart';
 
-class DioNetworkServiceImpl implements NetworkService {
-  DioNetworkServiceImpl(this._dio);
+class NetworkServiceImpl implements NetworkService {
+  NetworkServiceImpl(this._dioService);
 
-  final Dio _dio;
+  final DioService _dioService;
 
-  @override
-  Future<Response<T>> delete<T>(
-    String url, {
-    required HeaderMap headers,
-  }) {
-    try {
-      final result = _dio.delete<T>(
-        url,
-        options: Options(headers: headers),
-      );
-      return result;
-    } catch (error) {
-      ErrorParser.parseError(error as DioException);
-      rethrow;
-    }
-  }
+  static const _requiresAuthTokenKey = 'requiresAuthToken';
+  static const _exampleEndPoint = '/breeds/list/all';
+
+  static const _messageKey = 'message';
+
+  static const Map<String, dynamic> _defaultExtras = {
+    _requiresAuthTokenKey: false,
+  };
 
   @override
-  Future<Response<T>> get<T>({
-    required String url,
-    JsonMap? queryParameters,
-    StringMap? headers,
-    ResponseType? responseType,
-  }) {
+  Future<List<String>> getQuestions() async {
     try {
-      final result = _dio.get<T>(
-        url,
-        queryParameters: queryParameters,
-        options: Options(headers: headers, responseType: responseType),
+      final response = await _dioService.dio.get(
+        _exampleEndPoint,
+        options: Options(
+          extra: _defaultExtras,
+        ),
       );
-      return result;
-    } catch (error) {
-      ErrorParser.parseError(error as DioException);
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Response<T>> post<T>(
-    String url, {
-    HeaderMap? headers,
-    required JsonMap body,
-  }) async {
-    try {
-      final result = await _dio.post<T>(
-        url,
-        data: body,
-        options: Options(headers: headers),
-      );
-      return result;
-    } catch (error) {
-      ErrorParser.parseError(error as DioException);
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Response<T>> put<T>(
-    String url, {
-    required HeaderMap headers,
-    required JsonMap body,
-  }) {
-    try {
-      final result = _dio.put<T>(
-        url,
-        data: body,
-        options: Options(headers: headers),
-      );
-      return result;
-    } catch (error) {
-      ErrorParser.parseError(error as DioException);
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Response<T>> patch<T>(
-    String url, {
-    required HeaderMap headers,
-    required JsonMap body,
-  }) {
-    try {
-      final result = _dio.patch<T>(
-        url,
-        data: body,
-        options: Options(headers: headers),
-      );
-      return result;
-    } catch (error) {
-      ErrorParser.parseError(error as DioException);
-      rethrow;
+      final Map<String, dynamic> responseData = response.data[_messageKey];
+      final List<String> questions = responseData.keys.toList();
+      return questions;
+    } on DioException catch (ex) {
+      throw CustomException.fromDioException(ex);
+    } on Exception catch (ex) {
+      throw CustomException.fromParsingException(ex);
     }
   }
 }
