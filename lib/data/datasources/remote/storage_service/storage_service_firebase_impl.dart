@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_master/data/datasources/models/question_model.dart';
-import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
+import 'package:flutter_master/data/datasources/storage_service.dart';
 
-class StorageServiceFirebaseImpl implements StorageServiceFirebase {
+class StorageServiceFirebaseImpl implements StorageService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static const _isCorrectField = 'is_correct';

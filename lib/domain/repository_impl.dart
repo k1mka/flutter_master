@@ -1,7 +1,7 @@
 import 'package:flutter_master/data/datasources/locale/local_storage.dart';
 import 'package:flutter_master/data/datasources/models/question_model.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
-import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
+import 'package:flutter_master/data/datasources/storage_service.dart';
 import 'package:flutter_master/domain/repository.dart';
 
 class RepositoryImpl implements Repository {
@@ -13,7 +13,7 @@ class RepositoryImpl implements Repository {
 
   final LocalStorage localStorage;
   final NetworkService networkService;
-  final StorageServiceFirebase firestoreService;
+  final StorageService firestoreService;
 
   @override
   Future<void> saveUserId(String userId) async =>

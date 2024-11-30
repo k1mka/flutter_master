@@ -7,8 +7,8 @@ import 'package:flutter_master/data/datasources/locale/local_storage_impl.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/dio_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service_impl.dart';
-import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
-import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service_impl.dart';
+import 'package:flutter_master/data/datasources/storage_service.dart';
+import 'package:flutter_master/data/datasources/remote/storage_service/storage_service_firebase_impl.dart';
 import 'package:flutter_master/domain/repository_impl.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:get_it/get_it.dart';
@@ -30,11 +30,11 @@ void setupSync() {
       CompositeLoggerImpl(logger: Logger()));
   _getIt.registerSingleton<LocalStorage>(LocalStorageImpl());
   _getIt
-      .registerSingleton<StorageServiceFirebase>(StorageServiceFirebaseImpl());
+      .registerSingleton<StorageService>(StorageServiceFirebaseImpl());
 
   _getIt.registerSingleton<Repository>(RepositoryImpl(
     localStorage: _getIt<LocalStorage>(),
     networkService: _getIt<NetworkService>(),
-    firestoreService: _getIt<StorageServiceFirebase>(),
+    firestoreService: _getIt<StorageService>(),
   ));
 }
