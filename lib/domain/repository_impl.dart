@@ -27,7 +27,8 @@ class RepositoryImpl implements Repository {
       await localStorage.getFailedList();
 
   @override
-  Future<void> updateFail(String item) async => localStorage.updateFail(item);
+  Future<void> updateFail(String questionText) async =>
+      await localStorage.updateFail(questionText);
 
   @override
   Future<List<String>?> deleteFailedItem(String item) async =>

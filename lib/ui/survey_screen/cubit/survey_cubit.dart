@@ -21,9 +21,9 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  Future<void> registerFail(String questionId) async {
+  Future<void> registerFail(String questionId, String questionText) async {
     emit(SurveyLoading());
-    await repository.updateFail(questionId);
+    await repository.updateFail(questionText);
     await repository.updateQuestionStatus(questionId, false);
 
     final newQuestion = await _getRandomQuestion();

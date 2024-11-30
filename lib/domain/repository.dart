@@ -5,7 +5,7 @@ abstract interface class Repository {
 
   Future<void> saveUserId(String userId);
 
-  Future<void> updateFail(String item);
+  Future<void> updateFail(String questionText);
 
   Future<List<String>?> getFailedList();
 
