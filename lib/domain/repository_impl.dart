@@ -1,4 +1,5 @@
 import 'package:flutter_master/data/datasources/locale/local_storage.dart';
+import 'package:flutter_master/data/datasources/models/question_model.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
 import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
 import 'package:flutter_master/domain/repository.dart';
@@ -33,11 +34,9 @@ class RepositoryImpl implements Repository {
       await localStorage.deleteFailedItem(item);
 
   @override
-  Future<List<Map<String, dynamic>>> getQuestions() =>
-      firestoreService.getQuestions();
+  Future<List<QuestionModel>> getQuestions() => firestoreService.getQuestions();
 
   @override
-  Future<void> updateQuestionByText(
-          String questionText, Map<String, dynamic> data) =>
-      firestoreService.updateQuestionByText(questionText, data);
+  Future<void> updateQuestionStatus(String questionText, bool isCorrect) =>
+      firestoreService.updateQuestionStatus(questionText, isCorrect);
 }
