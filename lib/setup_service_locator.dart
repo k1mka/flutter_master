@@ -9,7 +9,7 @@ import 'package:flutter_master/data/datasources/remote/network_service/network_s
 import 'package:flutter_master/data/datasources/remote/network_service/network_service_impl.dart';
 import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service.dart';
 import 'package:flutter_master/data/datasources/remote/storage_service/firestore_service_impl.dart';
-import 'package:flutter_master/data/repository_impl.dart';
+import 'package:flutter_master/domain/repository_impl.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';

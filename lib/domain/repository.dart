@@ -1,3 +1,5 @@
+import 'package:flutter_master/data/datasources/models/question_model.dart';
+
 abstract interface class Repository {
   Future<String?> getUserId();
 
@@ -7,10 +9,9 @@ abstract interface class Repository {
 
   Future<List<String>?> getFailedList();
 
-  Future<List<Map<String, dynamic>>> getQuestions();
+  Future<List<QuestionModel>> getQuestions();
 
   Future<List<String>?> deleteFailedItem(String item);
 
-  Future<void> updateQuestionByText(
-      String questionText, Map<String, dynamic> data);
+  Future<void> updateQuestionStatus(String questionText, bool isCorrect);
 }

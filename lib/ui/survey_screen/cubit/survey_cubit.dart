@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_master/data/datasources/models/question_model.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:flutter_master/ui/survey_screen/cubit/survey_state.dart';
 
@@ -12,7 +13,7 @@ class SurveyCubit extends Cubit<SurveyState> {
 
   Future<void> uploadNewQuestion() async {
     emit(SurveyLoading());
-    final question = await _getRandomQuestionFromFirestore();
+    final question = await _getRandomQuestion();
     if (question != null) {
       emit(SurveySuccessLoaded(question));
     } else {
@@ -20,10 +21,24 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  Future<void> registerFail(String question) async {
+  Future<void> registerFail(String questionId) async {
     emit(SurveyLoading());
-    await repository.updateFail(question);
-    final newQuestion = await _getRandomQuestionFromFirestore();
+    await repository.updateFail(questionId);
+    await repository.updateQuestionStatus(questionId, false);
+
+    final newQuestion = await _getRandomQuestion();
+    if (newQuestion != null) {
+      emit(SurveySuccessLoaded(newQuestion));
+    } else {
+      emit(SurveyInitial());
+    }
+  }
+
+  Future<void> registerCorrectAnswer(String questionId) async {
+    emit(SurveyLoading());
+    await repository.updateQuestionStatus(questionId, true);
+
+    final newQuestion = await _getRandomQuestion();
     if (newQuestion != null) {
       emit(SurveySuccessLoaded(newQuestion));
     } else {
@@ -33,7 +48,7 @@ class SurveyCubit extends Cubit<SurveyState> {
 
   Future<void> getQuestion() async {
     emit(SurveyLoading());
-    final question = await _getRandomQuestionFromFirestore();
+    final question = await _getRandomQuestion();
     if (question != null) {
       emit(SurveySuccessLoaded(question));
     } else {
@@ -41,30 +56,16 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  Future<String?> _getRandomQuestionFromFirestore() async {
+  Future<QuestionModel?> _getRandomQuestion() async {
     final questions = await repository.getQuestions();
-    final unansweredQuestions =
-        questions.where((q) => q['answered_correctly'] == false).toList();
-    if (unansweredQuestions.isNotEmpty) {
+
+    if (questions.isNotEmpty) {
       final random = Random();
-      final question =
-          unansweredQuestions[random.nextInt(unansweredQuestions.length)];
-      return question['text'] as String?;
+      return questions[random.nextInt(questions.length)];
     } else {
       emit(SurveyInitial());
     }
+
     return null;
-  }
-
-  Future<void> registerCorrectAnswer(String questionText) async {
-    await repository
-        .updateQuestionByText(questionText, {'answered_correctly': true});
-
-    final newQuestion = await _getRandomQuestionFromFirestore();
-    if (newQuestion != null) {
-      emit(SurveySuccessLoaded(newQuestion));
-    } else {
-      emit(SurveyInitial());
-    }
   }
 }
