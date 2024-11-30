@@ -1,6 +1,7 @@
-abstract class StorageServiceFirebase {
-  Future<List<Map<String, dynamic>>> getQuestions();
+import 'package:flutter_master/data/datasources/models/question_model.dart';
 
-  Future<void> updateQuestionByText(
-      String questionText, Map<String, dynamic> data);
+abstract class StorageServiceFirebase {
+  Future<List<QuestionModel>> getQuestions();
+
+  Future<void> updateQuestionStatus(String questionText, bool isCorrect);
 }
