@@ -1,3 +1,5 @@
+// TODO(Benik): replace with freezed
+
 class QuestionModel {
   final String text;
   final bool? isCorrect;

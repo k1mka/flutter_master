@@ -1,3 +1,5 @@
+// TODO(Benik): delete unused interface
+
 abstract interface class LocalStorage {
   Future<void> saveUserId(String userId);
 
