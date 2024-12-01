@@ -69,6 +69,8 @@ dependencies:
   shared_preferences: ^2.3.2
   # https://pub.dev/packages/firebase_core
   firebase_core: ^3.6.0
+  # https://pub.dev/packages/cloud_firestore
+  cloud_firestore: ^5.4.5
 
 
 
