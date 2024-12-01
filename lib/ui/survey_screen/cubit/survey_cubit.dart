@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_master/data/datasources/models/question_model.dart';
+import 'package:flutter_master/data/models/question_model.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:flutter_master/ui/survey_screen/cubit/survey_state.dart';
 

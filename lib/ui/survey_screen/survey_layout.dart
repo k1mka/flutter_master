@@ -20,14 +20,14 @@ class SurveyLayout extends StatelessWidget {
             SurveyInitial() => const SizedBox.shrink(),
             SurveyLoading() => const ProgressTemplate(),
             SurveySuccessLoaded() => SurveyPage(
-                question: state.question.text,
+                question: state.question.text as String,
                 onSuccessPressed: () async => context
                     .read<SurveyCubit>()
                     .registerCorrectAnswer(state.question.questionId),
                 onFailPressed: () async =>
                     context.read<SurveyCubit>().registerFail(
                           state.question.questionId,
-                          state.question.text,
+                          state.question.text as String,
                         ),
               ),
           };

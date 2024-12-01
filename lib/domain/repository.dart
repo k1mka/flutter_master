@@ -1,4 +1,4 @@
-import 'package:flutter_master/data/datasources/models/question_model.dart';
+import 'package:flutter_master/data/models/question_model.dart';
 
 abstract interface class Repository {
   Future<String?> getUserId();

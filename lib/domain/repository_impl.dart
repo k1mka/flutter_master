@@ -1,5 +1,5 @@
 import 'package:flutter_master/data/datasources/locale/local_storage.dart';
-import 'package:flutter_master/data/datasources/models/question_model.dart';
+import 'package:flutter_master/data/models/question_model.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
 import 'package:flutter_master/data/datasources/storage_service.dart';
 import 'package:flutter_master/domain/repository.dart';
