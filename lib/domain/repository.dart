@@ -9,9 +9,9 @@ abstract interface class Repository {
 
   Future<List<String>?> getFailedList();
 
-  Future<List<QuestionModel>> getQuestions();
-
   Future<List<String>?> deleteFailedItem(String item);
 
-  Future<void> updateQuestionStatus(String questionText, bool isCorrect);
+  Future<QuestionModel> getRandomQuestion();
+
+  Future<void> updateQuestionStatusById(int questionId, bool isCorrect);
 }

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_master/data/models/question_model.dart';
 import 'package:flutter_master/domain/repository.dart';
@@ -21,10 +20,11 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  Future<void> registerFail(String questionId, String questionText) async {
+  Future<void> registerFail(
+      {required int questionId, required String questionText, required bool isCorrect}) async {
     emit(SurveyLoading());
     await repository.updateFail(questionText);
-    await repository.updateQuestionStatus(questionId, false);
+    await repository.updateQuestionStatusById(questionId, isCorrect);
 
     final newQuestion = await _getRandomQuestion();
     if (newQuestion != null) {
@@ -34,9 +34,9 @@ class SurveyCubit extends Cubit<SurveyState> {
     }
   }
 
-  Future<void> registerCorrectAnswer(String questionId) async {
+  Future<void> registerCorrectAnswer({required int questionId, required bool isCorrect}) async {
     emit(SurveyLoading());
-    await repository.updateQuestionStatus(questionId, true);
+    await repository.updateQuestionStatusById(questionId, isCorrect);
 
     final newQuestion = await _getRandomQuestion();
     if (newQuestion != null) {
@@ -57,15 +57,12 @@ class SurveyCubit extends Cubit<SurveyState> {
   }
 
   Future<QuestionModel?> _getRandomQuestion() async {
-    final questions = await repository.getQuestions();
-
-    if (questions.isNotEmpty) {
-      final random = Random();
-      return questions[random.nextInt(questions.length)];
-    } else {
+    try {
+      final question = await repository.getRandomQuestion();
+      return question;
+    } catch (e) {
       emit(SurveyInitial());
+      return null;
     }
-
-    return null;
   }
 }

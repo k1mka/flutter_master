@@ -1,6 +1,8 @@
+import 'package:flutter_master/core/constants.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/custom_exception.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/dio_service.dart';
 import 'package:flutter_master/data/datasources/remote/network_service/network_service.dart';
+import 'package:flutter_master/data/models/question_model.dart';
 import 'package:dio/dio.dart';
 
 class NetworkServiceImpl implements NetworkService {
@@ -8,27 +10,43 @@ class NetworkServiceImpl implements NetworkService {
 
   final DioService _dioService;
 
-  static const _requiresAuthTokenKey = 'requiresAuthToken';
-  static const _exampleEndPoint = '/breeds/list/all';
-
-  static const _messageKey = 'message';
-
   static const Map<String, dynamic> _defaultExtras = {
-    _requiresAuthTokenKey: false,
+    Constants.requiresAuthTokenKey: false,
   };
 
   @override
-  Future<List<String>> getQuestions() async {
+  Future<QuestionModel> getRandomQuestion() async {
     try {
       final response = await _dioService.dio.get(
-        _exampleEndPoint,
+        Constants.randomQuestionEndPoint,
         options: Options(
           extra: _defaultExtras,
         ),
       );
-      final Map<String, dynamic> responseData = response.data[_messageKey];
-      final List<String> questions = responseData.keys.toList();
-      return questions;
+      final Map<String, dynamic> responseData = response.data;
+      return QuestionModel.fromJson(responseData);
+    } on DioException catch (ex) {
+      throw CustomException.fromDioException(ex);
+    } on Exception catch (ex) {
+      throw CustomException.fromParsingException(ex);
+    }
+  }
+
+  @override
+  Future<void> updateQuestionStatus(int questionId, bool isCorrect) async {
+    try {
+      await _dioService.dio.patch(
+        '${Constants.updateQuestionStatusEndPoint}/$questionId',
+        data: {
+          Constants.isCorrectApiField: isCorrect,
+        },
+        options: Options(
+          extra: _defaultExtras,
+          headers: {
+            Constants.contentTypeHeader: Constants.applicationJson,
+          },
+        ),
+      );
     } on DioException catch (ex) {
       throw CustomException.fromDioException(ex);
     } on Exception catch (ex) {
