@@ -10,8 +10,8 @@ class SurveyScreen extends StatelessWidget {
   static const routeName = 'SurveyScreen';
 
   @override
-  Widget build(BuildContext context) => BlocProvider(
-        create: (context) => SurveyCubit(getRepo),
+  Widget build(_) => BlocProvider(
+        create: (_) => SurveyCubit(getRepo),
         child: const SurveyLayout(),
       );
 }

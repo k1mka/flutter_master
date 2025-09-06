@@ -16,28 +16,24 @@ class RepositoryImpl implements Repository {
   final StorageService firestoreService;
 
   @override
-  Future<void> saveUserId(String userId) async =>
-      await localStorage.saveUserId(userId);
+  Future<void> saveUserId(String userId) async => await localStorage.saveUserId(userId);
 
   @override
   Future<String?> getUserId() async => await localStorage.getUserId();
 
   @override
-  Future<List<String>?> getFailedList() async =>
-      await localStorage.getFailedList();
+  Future<List<String>?> getFailedList() async => await localStorage.getFailedList();
 
   @override
-  Future<void> updateFail(String questionText) async =>
-      await localStorage.updateFail(questionText);
+  Future<void> updateFail(String questionText) async => await localStorage.updateFail(questionText);
 
   @override
-  Future<List<String>?> deleteFailedItem(String item) async =>
-      await localStorage.deleteFailedItem(item);
+  Future<List<String>?> deleteFailedItem(String item) async => await localStorage.deleteFailedItem(item);
 
   @override
-  Future<List<QuestionModel>> getQuestions() => firestoreService.getQuestions();
+  Future<QuestionModel> getRandomQuestion() => networkService.getRandomQuestion();
 
   @override
-  Future<void> updateQuestionStatus(String questionText, bool isCorrect) =>
-      firestoreService.updateQuestionStatus(questionText, isCorrect);
+  Future<void> updateQuestionStatusById(int questionId, bool isCorrect) =>
+      networkService.updateQuestionStatus(questionId, isCorrect);
 }

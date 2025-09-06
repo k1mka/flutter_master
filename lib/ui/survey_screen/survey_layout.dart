@@ -10,25 +10,22 @@ class SurveyLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<SurveyCubit>();
     return Scaffold(
-      body: BlocConsumer<SurveyCubit, SurveyState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
+      body: BlocBuilder<SurveyCubit, SurveyState>(
+        builder: (_, state) {
           return switch (state) {
             SurveyInitial() => const SizedBox.shrink(),
             SurveyLoading() => const ProgressTemplate(),
             SurveySuccessLoaded() => SurveyPage(
-                question: state.question.text as String,
-                onSuccessPressed: () async => context
-                    .read<SurveyCubit>()
-                    .registerCorrectAnswer(state.question.questionId),
-                onFailPressed: () async =>
-                    context.read<SurveyCubit>().registerFail(
-                          state.question.questionId,
-                          state.question.text as String,
-                        ),
+                question: state.question.text,
+                onSuccessPressed: () async =>
+                    cubit.registerCorrectAnswer(questionId: state.question.id, isCorrect: true),
+                onFailPressed: () async => cubit.registerFail(
+                  isCorrect: false,
+                  questionId: state.question.id,
+                  questionText: state.question.text,
+                ),
               ),
           };
         },
