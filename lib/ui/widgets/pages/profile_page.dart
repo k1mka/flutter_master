@@ -23,7 +23,8 @@ class ProfilePage extends StatelessWidget {
             ),
             Spacings.spacer24,
             CustomButton(
-              onPressed: () => context.r.push(PersonalStatisticScreen.routeName),
+              onPressed: () =>
+                  context.r.push(PersonalStatisticScreen.routeName),
               buttonColor: Colors.lightBlueAccent,
               text: context.s.go_to_statistics,
             ),

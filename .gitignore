@@ -44,3 +44,7 @@ app.*.map.json
 
 # iOS related
 /ios/Podfile.lock
+
+# Code generated
+*.freezed.dart
+*.g.dart

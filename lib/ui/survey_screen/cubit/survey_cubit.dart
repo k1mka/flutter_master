@@ -1,50 +1,71 @@
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_master/data/models/question_model.dart';
 import 'package:flutter_master/domain/repository.dart';
 import 'package:flutter_master/ui/survey_screen/cubit/survey_state.dart';
 
 class SurveyCubit extends Cubit<SurveyState> {
   SurveyCubit(this.repository) : super(SurveyInitial()) {
-    getQuestions();
+    getQuestion();
   }
 
   final Repository repository;
 
-  // TODO(George): get from fire store
-  final List<String> questions = [
-    'Разница между mixin и extension',
-    'Объясни разницу между агрегацией и композицией',
-    'Как поддерживать чистоту кода в проекте',
-    'Какие типы параметров бывают в конструкторах',
-    'Что такое Future',
-  ];
-
-  void getQuestions() async {
-    // TODO(George): for test networking
-    await repository.getQuestions();
-  }
-
-  void uploadNewQuestion() async {
+  Future<void> uploadNewQuestion() async {
     emit(SurveyLoading());
-    final randomQuestion = _getRandomQuestion();
-    emit(SurveySuccessLoaded(randomQuestion));
+    final question = await _getRandomQuestion();
+    if (question != null) {
+      emit(SurveySuccessLoaded(question));
+    } else {
+      emit(SurveyInitial());
+    }
   }
 
-  void registerFail(String question) async {
+  Future<void> registerFail(String questionId, String questionText) async {
     emit(SurveyLoading());
-    await repository.updateFail(question);
-    final randomQuestion = _getRandomQuestion();
-    emit(SurveySuccessLoaded(randomQuestion));
+    await repository.updateFail(questionText);
+    await repository.updateQuestionStatus(questionId, false);
+
+    final newQuestion = await _getRandomQuestion();
+    if (newQuestion != null) {
+      emit(SurveySuccessLoaded(newQuestion));
+    } else {
+      emit(SurveyInitial());
+    }
   }
 
-  void getQuestion() async {
+  Future<void> registerCorrectAnswer(String questionId) async {
     emit(SurveyLoading());
-    final randomQuestion = _getRandomQuestion();
-    emit(SurveySuccessLoaded(randomQuestion));
+    await repository.updateQuestionStatus(questionId, true);
+
+    final newQuestion = await _getRandomQuestion();
+    if (newQuestion != null) {
+      emit(SurveySuccessLoaded(newQuestion));
+    } else {
+      emit(SurveyInitial());
+    }
   }
 
-  String _getRandomQuestion() {
-    final random = Random();
-    return questions[random.nextInt(questions.length)];
+  Future<void> getQuestion() async {
+    emit(SurveyLoading());
+    final question = await _getRandomQuestion();
+    if (question != null) {
+      emit(SurveySuccessLoaded(question));
+    } else {
+      emit(SurveyInitial());
+    }
+  }
+
+  Future<QuestionModel?> _getRandomQuestion() async {
+    final questions = await repository.getQuestions();
+
+    if (questions.isNotEmpty) {
+      final random = Random();
+      return questions[random.nextInt(questions.length)];
+    } else {
+      emit(SurveyInitial());
+    }
+
+    return null;
   }
 }
